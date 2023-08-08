@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "./core/redux/reducers/rootReducer";
+import { fetchEventsRequest } from "./core/redux/actions/eventsActions";
 
-function App() {
+const App = () => {
+  const dispatch = useDispatch();
+  const { pending, events, error } = useSelector(
+    (state: RootState) => state.events
+  );
+
+  useEffect(() => {
+    dispatch(fetchEventsRequest());
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      Hello
+      {pending ? (
+        <div>Loading...</div>
+      ) : error ? (
+        <div>Error</div>
+      ) : (
+        events?.map((event, index) => (
+          <div key={event.id}>
+            {++index}. {event.title}
+          </div>
+        ))
+      )}
     </div>
   );
-}
+};
 
 export default App;
