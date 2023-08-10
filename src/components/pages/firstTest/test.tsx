@@ -1,6 +1,7 @@
 import { FC, useState } from "react"
 import { Text } from '../../ui/text';
 import { Button } from "../../ui/button";
+import { Input } from "../../ui/input";
 
 export const Test: FC = () => {
     let [item, setItem] = useState(0);
@@ -10,7 +11,13 @@ export const Test: FC = () => {
             <Text type="param">Text Styled Component</Text>
             <Text type="header">Text Styled Component</Text>
             <Button type="common" size='medium' disabled>Button text</Button>
+            <br/>
+            <br/>
             <Button type="common" size='medium' onClick={() => {setItem(++item); console.log('item', item)}}>Button text</Button>
+            <br/>
+            <br/>
+            <br/>
+            <Input></Input>
         </>
     )
 }
