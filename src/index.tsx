@@ -3,6 +3,7 @@ import App from "./App";
 
 import { Provider } from "react-redux";
 import configureStore from "./core/redux/configureStore";import { Router } from "./components/templates/router";
+import GlobalStyles from "./styles/global";
 ;
 
 const store = configureStore();
@@ -12,6 +13,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <Provider store={store}>
+    <GlobalStyles />
     <Router />
   </Provider>
 );
