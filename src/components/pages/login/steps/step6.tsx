@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { Text } from '../../../ui/text';
 import { Button } from "../../../ui/button";
+import { ToggleButton } from "../../../ui/toggle-button";
 
 export const Step6: FC = () => {
     const genderCases = ['Woman', 'Man', 'More']
@@ -32,6 +33,7 @@ export const Step6: FC = () => {
                 <Button type="common" width="100%" onClick={handleGender} outlined>{item}</Button>
             )) : <Button type="common" width="100%" onClick={handleGender} outlined>TEST</Button>}
             <Button type="common" width="100%" onClick={handleContinue} disabled={!canContinue}>Contitnue</Button>
+            <ToggleButton type="danger" width="100%" outlined>Toggle</ToggleButton>
         </>
     )
 }
