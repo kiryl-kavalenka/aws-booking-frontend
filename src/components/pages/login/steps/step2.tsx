@@ -1,10 +1,11 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Text } from '../../../ui/text';
 import { Button } from "../../../ui/button";
 
 
 export const Step2: FC = () => {
     const [digitCode, setDigitCode] = useState('')
+    const [canConfirm, setCanConfirm] = useState(false);
 
     const handleDigitCodeChange = (event: any) => {
         setDigitCode(event.target.value)
@@ -17,6 +18,10 @@ export const Step2: FC = () => {
     const handleSendOver = () => {
         console.log('Send Over Event')
     }
+
+    useEffect(() => {
+        digitCode.length === 6 ? setCanConfirm(true) : setCanConfirm(false);
+    }, [digitCode])
 
     return(
         <>
@@ -34,7 +39,7 @@ export const Step2: FC = () => {
                             Send over.
                     </span>
             </Text>
-            <Button type="common" width="100%" onClick={handleConfirm}>Confirm</Button>
+            <Button type="common" width="100%" onClick={handleConfirm} disabled={!canConfirm}>Confirm</Button>
         </>
     )
 }
