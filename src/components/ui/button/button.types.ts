@@ -6,5 +6,6 @@ export interface ButtonProps {
     padding?: string;
     margin?: string;
     width?: string;
+    outlined?: boolean;
     onClick?: () => void;
 }
