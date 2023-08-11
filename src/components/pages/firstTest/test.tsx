@@ -1,7 +1,6 @@
 import { FC, useState } from "react"
 import { Text } from '../../ui/text';
 import { Button } from "../../ui/button";
-import { Input } from "../../ui/input";
 
 export const Test: FC = () => {
     let [item, setItem] = useState(0);
@@ -17,7 +16,6 @@ export const Test: FC = () => {
             <br/>
             <br/>
             <br/>
-            <Input></Input>
         </>
     )
 }
