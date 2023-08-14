@@ -4,36 +4,55 @@ import { Button } from "../../../ui/button";
 import { ToggleButton } from "../../../ui/toggle-button";
 
 export const Step6: FC = () => {
-    const genderCases = ['Woman', 'Man', 'More']
-    const [gender, setGender] = useState('')
     const [canContinue, setCanContinue] = useState(false);
-
-    const handleGender = (event: any) => {
-        console.log(event.target.innerHTML)
-        setGender(event.target.innerHTML);
-    }
+    const [woman, setWoman] = useState(false);
+    const [man, setMan] = useState(false);
+    const [more, setMore] = useState(false);
 
     const handleContinue = () => {
         console.log('continue')
     }
 
     useEffect(() => {
-        console.log('use effect gender', gender)
-        if (gender && gender === 'More') {
-            setCanContinue(false)
-        } else {
-            setCanContinue(true)
+        if (more) {
+            setWoman(false)
+            setMan(false)
         }
-    }, [gender])
+    }, [more])
+
+    useEffect(() => {
+
+        if (man) {
+            setWoman(false)
+            setMore(false)
+        }
+    }, [man])
+
+    useEffect(() => {
+        if (woman) {
+            setMan(false);
+            setMore(false)
+        }
+    }, [woman])
+
+
+    useEffect(() => {
+        if (woman || man) {
+            setCanContinue(true)
+        } else {
+            setCanContinue(false)
+        }
+    }, [woman, man, more])
 
     return(
         <>
             <Text type="header" textAlign="center" width="fit-content">I'm a...</Text>
-            {gender !== 'More' ? genderCases.map((item) => (
-                <Button type="common" width="100%" onClick={handleGender} outlined>{item}</Button>
-            )) : <Button type="common" width="100%" onClick={handleGender} outlined>TEST</Button>}
+
+            <ToggleButton type="common" width="100%" active={woman} setActive={setWoman} outlined>Woman</ToggleButton>
+            <ToggleButton type="common" width="100%" active={man} setActive={setMan} outlined>Man</ToggleButton>
+            <ToggleButton type="common" width="100%" active={more} setActive={setMore} outlined>More</ToggleButton>
+
             <Button type="common" width="100%" onClick={handleContinue} disabled={!canContinue}>Contitnue</Button>
-            <ToggleButton type="danger" width="100%" outlined>Toggle</ToggleButton>
         </>
     )
 }

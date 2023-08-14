@@ -7,4 +7,6 @@ export interface ToggleButtonProps {
     margin?: string;
     width?: string;
     outlined?: boolean;
+    active: boolean;
+    setActive: (param: boolean) => void;
 }

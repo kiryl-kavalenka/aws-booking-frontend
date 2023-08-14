@@ -35,21 +35,20 @@ export const Common = styled.button<ButtonProps>`
         }
     }};
     border: ${({outlined, type, active}) => {
-        // #c2d4d8
         if (outlined) {
             switch (type) {
                 case 'common' : 
-                    return `2px solid ${active ? '#c2d4d8' : '#545454' }`;
+                    return `2px solid ${active ? '#598498' : '#545454' }`;
                 case 'primary' :
-                    return `2px solid ${active ? '#c2d4d8' : '#1795f8' }`
+                    return `2px solid ${active ? '#598498' : '#1795f8' }`
                 case 'success' :
-                    return `2px solid ${active ? '#c2d4d8' : '#52d064' }`
+                    return `2px solid ${active ? '#598498' : '#52d064' }`
                 case 'warning' :
-                    return `2px solid ${active ? '#c2d4d8' : '#ffd965' }`
+                    return `2px solid ${active ? '#598498' : '#ffd965' }`
                 case 'danger' :
-                    return `2px solid ${active ? '#c2d4d8' : '#ff3e59' }`
+                    return `2px solid ${active ? '#598498' : '#ff3e59' }`
                 default:
-                    return `2px solid ${active ? '#c2d4d8' : '#545454' }`
+                    return `2px solid ${active ? '#598498' : '#545454' }`
             }
         } else {
             return '0px'
@@ -63,20 +62,20 @@ export const Common = styled.button<ButtonProps>`
         } else if (!color && outlined) {
             switch (type) {
                 case 'common' : 
-                    return `${active ? '#c2d4d8' : '#545454' }`;
+                    return `${active ? '#598498' : '#545454' }`;
                 case 'primary' :
-                    return `${active ? '#c2d4d8' : '#1795f8' }`
+                    return `${active ? '#598498' : '#1795f8' }`
                 case 'success' :
-                    return `${active ? '#c2d4d8' : '#52d064' }`
+                    return `${active ? '#598498' : '#52d064' }`
                 case 'warning' :
-                    return `${active ? '#c2d4d8' : '#ffd965' }`
+                    return `${active ? '#598498' : '#ffd965' }`
                 case 'danger' :
-                    return `${active ? '#c2d4d8' : '#ff3e59' }`
+                    return `${active ? '#598498' : '#ff3e59' }`
                 default:
-                    return `${active ? '#c2d4d8' : '#545454' }`
+                    return `${active ? '#598498' : '#545454' }`
             }
         } else {
-            return `${active ? '#c2d4d8' : '#fff' }`;
+            return `${active ? '#598498' : '#fff' }`;
         }
     }};
     width: ${({width}) => width};
@@ -102,8 +101,8 @@ export const Common = styled.button<ButtonProps>`
     user-select: none;
 
     &:disabled {
-        pointer-events: none; /* Отключаем события указателя */
-        opacity: 0.6; /* Понижаем прозрачность */
+        pointer-events: none;
+        opacity: 0.6;
     }
 
     &:hover {

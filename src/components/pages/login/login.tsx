@@ -3,6 +3,7 @@ import { Text } from '../../ui/text';
 import { Button } from "../../ui/button";
 import { Step1, Step2, Step3, Step4, Step5, Step6, Step7, Step8, Step9 } from "./steps";
 import styled from "styled-components";
+import { ToggleButton } from "../../ui/toggle-button";
 
 const LoginPageWrapper = styled.div`
     display: flex;
