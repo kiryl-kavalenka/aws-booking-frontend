@@ -74,7 +74,7 @@ export const LoginPage: FC = () => {
                 {currentStep === 6 && <Step6 /> }
                 {currentStep === 7 && <Step7 /> }
                 {currentStep === 8 && <Step8 /> }
-                {currentStep === 9 && <Step9 /> }
+                {/* {currentStep === 9 && <Step9 /> } */}
                 {/**buttons only for test */}
                 <div style={{display: 'flex', gap: '20px', marginTop: '100px'}}>
                     <Button type="danger" onClick={handlePrev} disabled={!goBack}>Prev</Button>
