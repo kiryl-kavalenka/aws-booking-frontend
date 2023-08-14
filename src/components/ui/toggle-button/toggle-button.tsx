@@ -1,13 +1,13 @@
-import { FC, PropsWithChildren, useState } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import * as S from './toggle-button.styles';
 import { ToggleButtonProps } from './toggle-button.types';
 
-export const ToggleButton: FC<PropsWithChildren<ToggleButtonProps>> = ({type, size, disabled, padding, margin, width, color, outlined, active, setActive, children}) => {
-  // const [isActive, setIsActive] = useState(false);
+export const ToggleButton: FC<PropsWithChildren<ToggleButtonProps>> = ({type, size, disabled, padding, margin, width, color, outlined, active, onClick, children}) => {
 
   const handleToggle = () => {
-    // setIsActive(!isActive);
-    setActive(!active);
+    if (onClick) {
+      onClick()
+    }
   };
 
   return (
