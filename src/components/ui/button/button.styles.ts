@@ -8,7 +8,7 @@ export const Common = styled.button<ButtonProps>`
         } else {
             switch (type) {
                 case 'common' : 
-                    return '#545454';
+                    return '#1c1d1f';
                 case 'primary' :
                     return '#1795f8'
                 case 'success' :
@@ -18,7 +18,7 @@ export const Common = styled.button<ButtonProps>`
                 case 'danger' :
                     return '#ff3e59'
                 default:
-                    return '#545454'
+                    return '#1c1d1f'
             }
         }
     }};
@@ -26,7 +26,7 @@ export const Common = styled.button<ButtonProps>`
         if (outlined) {
             switch (type) {
                 case 'common' : 
-                    return '2px solid #545454';
+                    return '2px solid #1c1d1f';
                 case 'primary' :
                     return '2px solid #1795f8'
                 case 'success' :
@@ -36,7 +36,7 @@ export const Common = styled.button<ButtonProps>`
                 case 'danger' :
                     return '2px solid #ff3e59'
                 default:
-                    return '2px solid #545454'
+                    return '2px solid #1c1d1f'
             }
         } else {
             return '0px'
@@ -50,7 +50,7 @@ export const Common = styled.button<ButtonProps>`
         } else if (!color && outlined) {
             switch (type) {
                 case 'common' : 
-                    return '#545454';
+                    return '#1c1d1f';
                 case 'primary' :
                     return '#1795f8'
                 case 'success' :
@@ -60,7 +60,7 @@ export const Common = styled.button<ButtonProps>`
                 case 'danger' :
                     return '#ff3e59'
                 default:
-                    return '#545454'
+                    return '#1c1d1f'
             }
         } else {
             return '#fff';
