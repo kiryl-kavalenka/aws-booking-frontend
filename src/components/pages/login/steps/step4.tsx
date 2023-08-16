@@ -1,6 +1,8 @@
 import { FC, useEffect, useState } from "react";
 import { Text } from '../../../ui/text';
 import { Button } from "../../../ui/button";
+import { Input } from "../../../ui/input";
+
 
 export const Step4: FC = () => {
     const [nickName, setNickName] = useState('')
@@ -28,7 +30,13 @@ export const Step4: FC = () => {
                 >
                     This is how you will appear in Vamost
             </Text>
-            <input type="text" placeholder="Nickname" value={nickName} onChange={handleNickNameChange}></input>
+            <Input 
+                type="text" 
+                name="text" 
+                placeholder="Nickname" 
+                width="fit-content"
+                onChange={handleNickNameChange}
+            />
             <Button type="common" width="100%" onClick={handleContinue} disabled={!canContinue}>Contitnue</Button>
         </>
     )

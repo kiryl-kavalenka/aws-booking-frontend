@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { Text } from '../../../ui/text';
 import { Button } from "../../../ui/button";
+import { Input } from "../../../ui/input";
 
 export const Step3: FC = () => {
     const [email, setEmail] = useState('')
@@ -28,7 +29,13 @@ export const Step3: FC = () => {
                 >
                     Don't lose access to your  account, verify your email. 
             </Text>
-            <input type="email" placeholder="Enter your emial address" value={email} onChange={handleEmailChange}></input>
+            <Input 
+                type="email" 
+                name="email" 
+                placeholder="Enter your emial address" 
+                width="fit-content"
+                onChange={handleEmailChange}
+            />
             <Button type="common" width="100%" onClick={handleContinue} disabled={!canContinue}>Contitnue</Button>
         </>
     )

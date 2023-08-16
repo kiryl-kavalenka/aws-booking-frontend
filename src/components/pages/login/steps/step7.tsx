@@ -2,7 +2,6 @@ import { FC, useEffect, useState } from "react";
 import { Text } from '../../../ui/text';
 import { Button } from "../../../ui/button";
 import { ToggleButton } from "../../../ui/toggle-button";
-import { CheckBox } from "../../../ui/checkbox";
 
 export const Step7: FC = () => {
     const SHOW_ME_CASES: string[] = ['Woman', 'Man', 'Everyone'];
