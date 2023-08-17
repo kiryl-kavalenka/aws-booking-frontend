@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react"
 import { Text } from '../../ui/text';
 import { Button } from "../../ui/button";
-import { Step1, Step2, Step3, Step4, Step5, Step6, Step7, Step8, Step9 } from "./steps";
+import { Step1, Step2, Step3, Step4, Step5, Step6, Step7, Step8 } from "./steps";
 import styled from "styled-components";
 
 
@@ -72,7 +72,6 @@ export const LoginPage: FC = () => {
                 {currentStep === 6 && <Step6 /> }
                 {currentStep === 7 && <Step7 /> }
                 {currentStep === 8 && <Step8 /> }
-                {/* {currentStep === 9 && <Step9 /> } */}
                 {/**buttons only for test */}
                 <div style={{display: 'flex', gap: '20px', marginTop: '100px'}}>
                     <Button type="danger" onClick={handlePrev} disabled={!goBack}>Prev</Button>
