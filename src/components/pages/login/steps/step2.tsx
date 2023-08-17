@@ -9,7 +9,7 @@ export const Step2: FC = () => {
     const [canConfirm, setCanConfirm] = useState(false);
 
     const handleDigitCodeChange = (keysInputed: string[]) => {
-        console.log('inputed', keysInputed)
+        setDigitCode(prev => prev = keysInputed.join(''))
     }
 
     const handleConfirm = () => {

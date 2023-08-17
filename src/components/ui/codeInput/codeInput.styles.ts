@@ -8,8 +8,8 @@ interface InputContainerProps {
 }
 
 export const Dot = styled.div`
-    width: 30%;
-    height: 30%;
+    width: 15%;
+    height: 15%;
     background-color: #a1a1a1;
     border-radius: 50%;
 `
