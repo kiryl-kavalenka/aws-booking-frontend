@@ -3,8 +3,11 @@ import { Text } from '../../../ui/text';
 import { Button } from "../../../ui/button";
 import { CodeInput } from "../../../ui/codeInput";
 
+interface Step2Props {
+    goAhead: () => void;
+}
 
-export const Step2: FC = () => {
+export const Step2: FC<Step2Props> = ({goAhead}) => {
     const [digitCode, setDigitCode] = useState('')
     const [canConfirm, setCanConfirm] = useState(false);
 
@@ -14,6 +17,7 @@ export const Step2: FC = () => {
 
     const handleConfirm = () => {
         console.log('confirm event')
+        goAhead()
     }
 
     const handleSendOver = () => {

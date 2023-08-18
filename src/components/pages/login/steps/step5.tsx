@@ -3,7 +3,11 @@ import { Text } from '../../../ui/text';
 import { Button } from "../../../ui/button";
 import { DateInput } from "../../../ui/dateInput";
 
-export const Step5: FC = () => {
+interface Step5Props {
+    goAhead: () => void;
+}
+
+export const Step5: FC<Step5Props> = ({goAhead}) => {
     const [birthDay, setBirthDay] = useState('')
     const [canContinue, setCanContinue] = useState(false);
     const [validateError] = useState('')
@@ -18,6 +22,7 @@ export const Step5: FC = () => {
 
     const handleContinue = () => {
         console.log('continue')
+        goAhead()
     }
 
     useEffect(() => {

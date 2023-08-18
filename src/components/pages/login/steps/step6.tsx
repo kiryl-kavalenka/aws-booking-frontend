@@ -4,7 +4,11 @@ import { Button } from "../../../ui/button";
 import { ToggleButton } from "../../../ui/toggle-button";
 import { CheckBox } from "../../../ui/checkbox";
 
-export const Step6: FC = () => {
+interface Step6Props {
+    goAhead: () => void;
+}
+
+export const Step6: FC<Step6Props> = ({goAhead}) => {
     const MAX_SELECTED_GENDERS = 3;
     const ORIENTATIONS = ['Straight', 'Gay', 'Lesbian', 'Bisexual', 'Asexual', 'Demisexual', 'Pansexual', 'Queer']
     const GENDERS = ['Woman', 'Man', 'More']
@@ -22,6 +26,7 @@ export const Step6: FC = () => {
         console.log('selectedGender', selectedGender)
         console.log('showGenderOnProfile', showGenderOnProfile)
         console.log('showOrientationOnProfile', showOrientationOnProfile)
+        goAhead()
     }
 
 

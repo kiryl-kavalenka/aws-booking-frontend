@@ -63,8 +63,11 @@ const DeleteImageButton = styled.div`
         transform: rotate(45deg);
     }
 `
+interface Step8Props {
+    goAhead: () => void;
+}
 
-export const Step8: FC = () => {
+export const Step8: FC<Step8Props> = ({goAhead}) => {
     const [canFinish, setCanFinish] = useState<boolean>(false);
 
     const [images, setImages] = useState<File[]>(Array.from({length: 6}));
@@ -169,6 +172,7 @@ export const Step8: FC = () => {
 
     const handleFinish = () => {
         console.log('finish')
+        goAhead()
     }
 
     return(

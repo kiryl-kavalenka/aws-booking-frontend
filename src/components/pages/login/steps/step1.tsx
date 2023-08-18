@@ -31,7 +31,11 @@ const PhoneInputWrapper = styled.div<{error: boolean}>`
     }
 `
 
-export const Step1: FC = () => {
+interface Step1Props {
+    goAhead: () => void;
+}
+
+export const Step1: FC<Step1Props> = ({goAhead}) => {
     const [password, setPassword] = useState('');
     const [phoneNumber, setPhoneNumber] = useState<string | undefined>();
     const [canSignIn, setCanSignIn] = useState(false);
@@ -64,6 +68,7 @@ export const Step1: FC = () => {
     const handleSignIn = () => {
         console.log('sign in event');
         console.log(`phoneNumber and password = ${phoneNumber}  ${password}`);
+        goAhead();
     }
 
     return (

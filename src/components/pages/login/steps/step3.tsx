@@ -3,7 +3,11 @@ import { Text } from '../../../ui/text';
 import { Button } from "../../../ui/button";
 import { Input } from "../../../ui/input";
 
-export const Step3: FC = () => {
+interface Step3Props {
+    goAhead: () => void;
+}
+
+export const Step3: FC<Step3Props> = ({goAhead}) => {
     const [email, setEmail] = useState('')
     const [canContinue, setCanContinue] = useState(false);
 
@@ -13,6 +17,7 @@ export const Step3: FC = () => {
 
     const handleContinue = () => {
         console.log('continue')
+        goAhead()
     }
 
     useEffect(() => {

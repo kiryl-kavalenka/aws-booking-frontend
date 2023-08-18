@@ -3,7 +3,11 @@ import { Text } from '../../../ui/text';
 import { Button } from "../../../ui/button";
 import { ToggleButton } from "../../../ui/toggle-button";
 
-export const Step7: FC = () => {
+interface Step7Props {
+    goAhead: () => void;
+}
+
+export const Step7: FC<Step7Props> = ({goAhead}) => {
     const SHOW_ME_CASES: string[] = ['Woman', 'Man', 'Everyone'];
 
     const [selectedCase, setSelectedCase] = useState('');
@@ -21,6 +25,7 @@ export const Step7: FC = () => {
 
     const handleContinue = () => {
         console.log('selectedCase', selectedCase)
+        goAhead()
     }
 
     return(
