@@ -14,6 +14,10 @@ export const DateInput: FC<DateInputProps> = ({onValidateError , onChange}) => {
         }
     }
 
+    const containsOnlyNumbers = (str: string) => {
+        return /^\d+$/.test(str);
+    }
+
     const validMM = (month: number) => {
         return month > 0 && month <= 12 ? true : false;
     }
@@ -82,17 +86,17 @@ export const DateInput: FC<DateInputProps> = ({onValidateError , onChange}) => {
 
     useEffect(() => {
         if (keysPressed.length === 2) {
-            if (!validMM(Number(keysPressed.join('')))) {
+            if (!validMM(Number(keysPressed.join(''))) || !containsOnlyNumbers(keysPressed.join(''))) {
                 setValidError(prev => prev = 'month is not valid')
                 onValidateError(true)
             }
         } else if (keysPressed.length === 4) {
-            if (!validDD(Number([keysPressed[2], keysPressed[3]].join('')), Number([keysPressed[0], keysPressed[1]].join('')))) {
+            if (!validDD(Number([keysPressed[2], keysPressed[3]].join('')), Number([keysPressed[0], keysPressed[1]].join(''))) || !containsOnlyNumbers(keysPressed.join(''))) {
                 setValidError(prev => prev = 'day is not valid')
                 onValidateError(true)
             }
         } else if (keysPressed.length === 8) {
-            if (!validYYYY(Number([keysPressed[4], keysPressed[5], keysPressed[6], keysPressed[7]].join('')))) {
+            if (!validYYYY(Number([keysPressed[4], keysPressed[5], keysPressed[6], keysPressed[7]].join(''))) || !containsOnlyNumbers(keysPressed.join(''))) {
                 setValidError(prev => prev = 'year is not valid')
                 onValidateError(true)
             }
