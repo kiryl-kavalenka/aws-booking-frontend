@@ -1,5 +1,17 @@
 import styled from "styled-components";
-import { ButtonProps } from "./button.types";
+
+export interface ButtonProps {
+    type?: 'common' | 'primary' | 'success' | 'warning' | 'danger';
+    size?: 'large' | 'medium' | 'small';
+    disabled?: boolean;
+    color?: string;
+    padding?: string;
+    margin?: string;
+    width?: string;
+    outlined?: boolean;
+    active: boolean;
+    onClick?: (event?: any) => void;
+}
 
 export const Common = styled.button<ButtonProps>`
     background: ${({type, outlined}) => {
@@ -8,7 +20,7 @@ export const Common = styled.button<ButtonProps>`
         } else {
             switch (type) {
                 case 'common' : 
-                    return '#1c1d1f';
+                    return '#545454';
                 case 'primary' :
                     return '#1795f8'
                 case 'success' :
@@ -18,25 +30,25 @@ export const Common = styled.button<ButtonProps>`
                 case 'danger' :
                     return '#ff3e59'
                 default:
-                    return '#1c1d1f'
+                    return '#545454'
             }
         }
     }};
-    border: ${({outlined, type}) => {
+    border: ${({outlined, type, active}) => {
         if (outlined) {
             switch (type) {
                 case 'common' : 
-                    return '2px solid #1c1d1f';
+                    return `2px solid ${active ? '#598498' : '#545454' }`;
                 case 'primary' :
-                    return '2px solid #1795f8'
+                    return `2px solid ${active ? '#598498' : '#1795f8' }`
                 case 'success' :
-                    return '2px solid #52d064'
+                    return `2px solid ${active ? '#598498' : '#52d064' }`
                 case 'warning' :
-                    return '2px solid #ffd965'
+                    return `2px solid ${active ? '#598498' : '#ffd965' }`
                 case 'danger' :
-                    return '2px solid #ff3e59'
+                    return `2px solid ${active ? '#598498' : '#ff3e59' }`
                 default:
-                    return '2px solid #1c1d1f'
+                    return `2px solid ${active ? '#598498' : '#545454' }`
             }
         } else {
             return '0px'
@@ -44,26 +56,26 @@ export const Common = styled.button<ButtonProps>`
     }};
     border-radius: 3px;
     box-sizing: border-box;
-    color: ${({color, outlined, type}) => {
+    color: ${({color, outlined, type, active}) => {
         if (color && !outlined) {
             return color;
         } else if (!color && outlined) {
             switch (type) {
                 case 'common' : 
-                    return '#1c1d1f';
+                    return `${active ? '#598498' : '#545454' }`;
                 case 'primary' :
-                    return '#1795f8'
+                    return `${active ? '#598498' : '#1795f8' }`
                 case 'success' :
-                    return '#52d064'
+                    return `${active ? '#598498' : '#52d064' }`
                 case 'warning' :
-                    return '#ffd965'
+                    return `${active ? '#598498' : '#ffd965' }`
                 case 'danger' :
-                    return '#ff3e59'
+                    return `${active ? '#598498' : '#ff3e59' }`
                 default:
-                    return '#1c1d1f'
+                    return `${active ? '#598498' : '#545454' }`
             }
         } else {
-            return '#fff';
+            return `${active ? '#598498' : '#fff' }`;
         }
     }};
     width: ${({width}) => width};
@@ -89,8 +101,8 @@ export const Common = styled.button<ButtonProps>`
     user-select: none;
 
     &:disabled {
-        pointer-events: none; /* Отключаем события указателя */
-        opacity: 0.6; /* Понижаем прозрачность */
+        pointer-events: none;
+        opacity: 0.6;
     }
 
     &:hover {

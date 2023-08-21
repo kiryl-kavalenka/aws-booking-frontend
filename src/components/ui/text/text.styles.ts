@@ -11,7 +11,7 @@ export const Title = styled.div<TextProps>`
   font-size: 48px;
   font-weight: bold;
   color: #1d1d1f;
-  max-width: 1040px;
+  max-width: 1400px;
   width: ${({ width }) => (width ? width : '100%')};
   text-align: ${({ textAlign }) => textAlign};
   padding: ${({ padding }) => padding};
