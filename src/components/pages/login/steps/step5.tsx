@@ -10,13 +10,15 @@ interface Step5Props {
 export const Step5: FC<Step5Props> = ({goAhead}) => {
     const [birthDay, setBirthDay] = useState('')
     const [canContinue, setCanContinue] = useState(false);
-    const [validateError] = useState('')
+    const [validateError, setValidateError] = useState(false)
 
     const handleBirthDayChange = (keysInputed: string[]) => {
         console.log('keysInputed', keysInputed);
         if (keysInputed.length === 8) {
             const validDate = `${keysInputed[0]}${keysInputed[1]}.${keysInputed[2]}${keysInputed[3]}.${keysInputed[4]}${keysInputed[5]}${keysInputed[6]}${keysInputed[7]}`
             setBirthDay(prev => prev = validDate)
+        } else {
+            setBirthDay(prev => prev = '')
         }
     }
 
@@ -26,13 +28,22 @@ export const Step5: FC<Step5Props> = ({goAhead}) => {
     }
 
     useEffect(() => {
-        birthDay.length === 10 ? setCanContinue(true) : setCanContinue(false);
         console.log('birthDay', birthDay)
+        birthDay.length === 10 ? setCanContinue(true) : setCanContinue(false);
     }, [birthDay])
 
     useEffect(() => {
         console.log('validateError', validateError)
-    }, [validateError])
+        if (birthDay.length === 10) {
+            setCanContinue(validateError ? false : true);
+        } else {
+            setCanContinue(false)
+        }
+    }, [validateError, birthDay])
+
+    const onValidateError = (error: boolean) => {
+        setValidateError(error)
+    }
 
     return(
         <>
@@ -44,7 +55,7 @@ export const Step5: FC<Step5Props> = ({goAhead}) => {
                 >
                     Your age will be public.
             </Text>
-            <DateInput validateError={validateError} onChange={handleBirthDayChange}/>
+            <DateInput onValidateError={onValidateError} onChange={handleBirthDayChange}/>
             {/* <input type="date" placeholder="date" value={birthDay} onChange={handleBirthDayChange}></input> */}
             <Button type="common" width="100%" onClick={handleContinue} disabled={!canContinue}>Contitnue</Button>
         </>

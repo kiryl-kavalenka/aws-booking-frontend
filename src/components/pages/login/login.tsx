@@ -54,6 +54,7 @@ export const LoginPage: FC = () => {
 
     const handleClose = () => {
         console.log('close event')
+        setCurrentStep(prev => prev = 1)
     }
 
     return(
@@ -72,11 +73,6 @@ export const LoginPage: FC = () => {
                 {currentStep === 6 && <Step6 goAhead={handleNext} /> }
                 {currentStep === 7 && <Step7 goAhead={handleNext} /> }
                 {currentStep === 8 && <Step8 goAhead={handleNext} /> }
-                {/**buttons only for test */}
-                {/* <div style={{display: 'flex', gap: '20px', marginTop: '100px'}}>
-                    <Button type="danger" onClick={handlePrev} disabled={!goBack}>Prev</Button>
-                    <Button type="common" onClick={handleNext} disabled={!goAhead}>Next</Button>
-                </div> */}
             </LoginPageWrapper>
         </>
     )

@@ -1,4 +1,4 @@
 export interface DateInputProps {
-    validateError: string;
+    onValidateError: (error: boolean) => void;
     onChange: (keysInputed: string[]) => void;
 }

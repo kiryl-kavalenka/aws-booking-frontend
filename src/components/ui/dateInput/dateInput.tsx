@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 import * as S from './dateInput.styles'
 import { DateInputProps } from "./dateInput.types";
 
-export const DateInput: FC<DateInputProps> = ({validateError , onChange}) => {
+export const DateInput: FC<DateInputProps> = ({onValidateError , onChange}) => {
     const AMOUNT_OF_DIGITS = 8;
     const BACKGROUND_LETTERS = ['M', 'M', '/', 'D', 'D', '/', 'Y', 'Y', 'Y', 'Y']
     const [keysPressed, setKeysPressed] = useState<string[]>([])
@@ -84,31 +84,25 @@ export const DateInput: FC<DateInputProps> = ({validateError , onChange}) => {
         if (keysPressed.length === 2) {
             if (!validMM(Number(keysPressed.join('')))) {
                 setValidError(prev => prev = 'month is not valid')
+                onValidateError(true)
             }
-        }
-
-        if (keysPressed.length === 4) {
+        } else if (keysPressed.length === 4) {
             if (!validDD(Number([keysPressed[2], keysPressed[3]].join('')), Number([keysPressed[0], keysPressed[1]].join('')))) {
                 setValidError(prev => prev = 'day is not valid')
+                onValidateError(true)
             }
-        }
-        
-        if (keysPressed.length === 8) {
+        } else if (keysPressed.length === 8) {
             if (!validYYYY(Number([keysPressed[4], keysPressed[5], keysPressed[6], keysPressed[7]].join('')))) {
                 setValidError(prev => prev = 'year is not valid')
+                onValidateError(true)
             }
+        } else {
+            onValidateError(false)
         }
 
         onChange(keysPressed);
 
-    }, [keysPressed, onChange])
-
-    useEffect(() => {
-        if(validError.length !== 0) {
-            console.log('We have a problem: ', validError)
-            validateError = validError;
-        }
-    }, [validError])
+    }, [keysPressed, onChange, onValidateError])
 
     const MM = Array.from({ length: 2 }, (_, index) => (
         <S.ItemWrapper key={index} filled={!!keysPressed[index]}>
