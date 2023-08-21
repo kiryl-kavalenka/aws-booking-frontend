@@ -1,4 +1,4 @@
-export interface ButtonProps {
+export interface ToggleButtonProps {
     type?: 'common' | 'primary' | 'success' | 'warning' | 'danger';
     size?: 'large' | 'medium' | 'small';
     disabled?: boolean;
@@ -7,5 +7,6 @@ export interface ButtonProps {
     margin?: string;
     width?: string;
     outlined?: boolean;
-    onClick?: (event?: any) => void;
+    active: boolean;
+    onClick?: () => void;
 }

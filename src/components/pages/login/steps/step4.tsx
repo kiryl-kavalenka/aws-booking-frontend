@@ -1,8 +1,13 @@
 import { FC, useEffect, useState } from "react";
 import { Text } from '../../../ui/text';
 import { Button } from "../../../ui/button";
+import { Input } from "../../../ui/input";
 
-export const Step4: FC = () => {
+interface Step4Props {
+    goAhead: () => void;
+}
+
+export const Step4: FC<Step4Props> = ({goAhead}) => {
     const [nickName, setNickName] = useState('')
     const [canContinue, setCanContinue] = useState(false);
 
@@ -12,6 +17,7 @@ export const Step4: FC = () => {
 
     const handleContinue = () => {
         console.log('continue')
+        goAhead()
     }
 
     useEffect(() => {
@@ -28,7 +34,13 @@ export const Step4: FC = () => {
                 >
                     This is how you will appear in Vamost
             </Text>
-            <input type="text" placeholder="Nickname" value={nickName} onChange={handleNickNameChange}></input>
+            <Input 
+                type="text" 
+                name="text" 
+                placeholder="Nickname" 
+                width="fit-content"
+                onChange={handleNickNameChange}
+            />
             <Button type="common" width="100%" onClick={handleContinue} disabled={!canContinue}>Contitnue</Button>
         </>
     )

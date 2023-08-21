@@ -1,8 +1,9 @@
 import { FC, useEffect, useState } from "react"
 import { Text } from '../../ui/text';
 import { Button } from "../../ui/button";
-import { Step1, Step2, Step3, Step4, Step5, Step6, Step7, Step8, Step9 } from "./steps";
+import { Step1, Step2, Step3, Step4, Step5, Step6, Step7, Step8 } from "./steps";
 import styled from "styled-components";
+
 
 const LoginPageWrapper = styled.div`
     display: flex;
@@ -29,9 +30,7 @@ export const LoginPage: FC = () => {
     const [goBack, setGoBack] = useState(false);
 
     useEffect(() => {
-        // console.log('currentStep after update(useEffect)', currentStep);
-
-        if (currentStep === 9) {
+        if (currentStep === 8) {
             setGoAhead(false)
         } else if (currentStep === 1) {
             setGoBack(false)
@@ -55,30 +54,31 @@ export const LoginPage: FC = () => {
 
     const handleClose = () => {
         console.log('close event')
+        setCurrentStep(prev => prev = 1)
     }
 
     return(
         <>
             <LoginPageWrapper>
                 <LoginPageTop>
-                    {currentStep === 1 ? <Button type="common" onClick={handleSignIn}>Sign In</Button> : <Button type="danger" onClick={handlePrev} disabled={!goBack}>Go Back</Button>}
-                    <Text type="title" textAlign="center" width="fit-content">Vamost</Text>
-                    <Button type="common" onClick={handleClose}>Close</Button>
+                    {
+                        currentStep === 1 
+                            ? <Button type="common" onClick={handleSignIn}>Sign In</Button> 
+                            : currentStep < 8 ? <Button type="danger" onClick={handlePrev} disabled={!goBack}>Go Back</Button> : ''
+                    }
+                    <Text type="title" textAlign="center">Vamost</Text>
+                    {
+                        currentStep < 8 ? <Button type="common" onClick={handleClose}>Close</Button> : ''
+                    }
                 </LoginPageTop>
-                {currentStep === 1 && <Step1 /> }
-                {currentStep === 2 && <Step2 /> }
-                {currentStep === 3 && <Step3 /> }
-                {currentStep === 4 && <Step4 /> }
-                {currentStep === 5 && <Step5 /> }
-                {currentStep === 6 && <Step6 /> }
-                {currentStep === 7 && <Step7 /> }
-                {currentStep === 8 && <Step8 /> }
-                {currentStep === 9 && <Step9 /> }
-                {/**buttons only for test */}
-                <div style={{display: 'flex', gap: '20px', marginTop: '100px'}}>
-                    <Button type="danger" onClick={handlePrev} disabled={!goBack}>Prev</Button>
-                    <Button type="common" onClick={handleNext} disabled={!goAhead}>Next</Button>
-                </div>
+                {currentStep === 1 && <Step1 goAhead={handleNext} /> }
+                {currentStep === 2 && <Step2 goAhead={handleNext} /> }
+                {currentStep === 3 && <Step3 goAhead={handleNext} /> }
+                {currentStep === 4 && <Step4 goAhead={handleNext} /> }
+                {currentStep === 5 && <Step5 goAhead={handleNext} /> }
+                {currentStep === 6 && <Step6 goAhead={handleNext} /> }
+                {currentStep === 7 && <Step7 goAhead={handleNext} /> }
+                {currentStep === 8 && <Step8 goAhead={handleNext} /> }
             </LoginPageWrapper>
         </>
     )

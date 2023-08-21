@@ -1,18 +1,23 @@
 import { FC, useEffect, useState } from "react";
 import { Text } from '../../../ui/text';
 import { Button } from "../../../ui/button";
+import { CodeInput } from "../../../ui/codeInput";
 
+interface Step2Props {
+    goAhead: () => void;
+}
 
-export const Step2: FC = () => {
+export const Step2: FC<Step2Props> = ({goAhead}) => {
     const [digitCode, setDigitCode] = useState('')
     const [canConfirm, setCanConfirm] = useState(false);
 
-    const handleDigitCodeChange = (event: any) => {
-        setDigitCode(event.target.value)
+    const handleDigitCodeChange = (keysInputed: string[]) => {
+        setDigitCode(prev => prev = keysInputed.join(''))
     }
 
     const handleConfirm = () => {
         console.log('confirm event')
+        goAhead()
     }
 
     const handleSendOver = () => {
@@ -26,7 +31,7 @@ export const Step2: FC = () => {
     return(
         <>
             <Text type="header" textAlign="center" width="fit-content">Enter the 6-digit code sent to you at "phoneNumber"</Text>
-            <input type="text" placeholder="Enter your phone number" value={digitCode} onChange={handleDigitCodeChange}></input>
+            <CodeInput codeNumber={6} onChange={handleDigitCodeChange}></CodeInput>
             <Text
                 type="info" 
                 textAlign="center" 
