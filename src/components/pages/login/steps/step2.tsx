@@ -2,13 +2,21 @@ import { FC, useEffect, useState } from "react";
 import { Text } from '../../../ui/text';
 import { Button } from "../../../ui/button";
 import { CodeInput } from "../../../ui/codeInput";
+import { useDispatch, useSelector } from "react-redux";
+import { continueStep2Clicked } from "../../../../core/redux/actions/loginActions";
+import { RootState } from "../../../../core/redux/reducers/rootReducer";
 
 interface Step2Props {
     goAhead: () => void;
 }
 
 export const Step2: FC<Step2Props> = ({goAhead}) => {
-    const [digitCode, setDigitCode] = useState('')
+    const dispatch = useDispatch();
+    const { sixDigitCode } = useSelector(
+        (state: RootState) => state.login
+    );
+
+    const [digitCode, setDigitCode] = useState(sixDigitCode)
     const [canConfirm, setCanConfirm] = useState(false);
 
     const handleDigitCodeChange = (keysInputed: string[]) => {
@@ -17,6 +25,7 @@ export const Step2: FC<Step2Props> = ({goAhead}) => {
 
     const handleConfirm = () => {
         console.log('confirm event')
+        dispatch(continueStep2Clicked({sixDigitCode: digitCode}))
         goAhead()
     }
 
@@ -31,7 +40,7 @@ export const Step2: FC<Step2Props> = ({goAhead}) => {
     return(
         <>
             <Text type="header" textAlign="center" width="fit-content">Enter the 6-digit code sent to you at "phoneNumber"</Text>
-            <CodeInput codeNumber={6} onChange={handleDigitCodeChange}></CodeInput>
+            <CodeInput codeNumber={6} value={digitCode} onChange={handleDigitCodeChange}></CodeInput>
             <Text
                 type="info" 
                 textAlign="center" 

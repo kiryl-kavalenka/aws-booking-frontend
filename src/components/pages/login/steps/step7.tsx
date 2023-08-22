@@ -2,6 +2,9 @@ import { FC, useEffect, useState } from "react";
 import { Text } from '../../../ui/text';
 import { Button } from "../../../ui/button";
 import { ToggleButton } from "../../../ui/toggle-button";
+import { useDispatch, useSelector } from "react-redux";
+import { continueStep7Clicked } from "../../../../core/redux/actions/loginActions";
+import { RootState } from "../../../../core/redux/reducers/rootReducer";
 
 interface Step7Props {
     goAhead: () => void;
@@ -10,7 +13,12 @@ interface Step7Props {
 export const Step7: FC<Step7Props> = ({goAhead}) => {
     const SHOW_ME_CASES: string[] = ['Woman', 'Man', 'Everyone'];
 
-    const [selectedCase, setSelectedCase] = useState('');
+    const dispatch = useDispatch();
+    const { showUserTo } = useSelector(
+        (state: RootState) => state.login
+    );
+
+    const [selectedCase, setSelectedCase] = useState(showUserTo);
     const [canContinue, setCanContinue] = useState(false);
 
     useEffect(() => {
@@ -24,7 +32,7 @@ export const Step7: FC<Step7Props> = ({goAhead}) => {
     }
 
     const handleContinue = () => {
-        console.log('selectedCase', selectedCase)
+        dispatch(continueStep7Clicked({showUserTo: selectedCase}))
         goAhead()
     }
 
