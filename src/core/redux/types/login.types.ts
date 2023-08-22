@@ -9,7 +9,9 @@ export interface LoginState {
   userNickName: string;
   userBirthDate: string;
   userSelectedGender: string;
+  userSelectedOrientations: string[];
   showUsersGender: boolean;
+  showUsersOrientations: boolean;
 }
 
 export interface SignUpClicked {
@@ -65,7 +67,9 @@ export interface ContinueStep5Payload {
 
 export interface ContinueStep6Payload {
   userSelectedGender: string;
+  userSelectedOrientations: string[];
   showUsersGender: boolean;
+  showUsersOrientations: boolean;
 }
 
 export type LoginActions = 

@@ -10,7 +10,9 @@ const initialState: LoginState = {
   userNickName: '',
   userBirthDate: '',
   userSelectedGender: '',
+  userSelectedOrientations: [''],
   showUsersGender: false,
+  showUsersOrientations: false,
 };
 
 
@@ -47,7 +49,9 @@ const loginReducer = (state = initialState, action: LoginActions) => {
       return {
         ...state,
         userSelectedGender: action.payload.userSelectedGender,
-        showUsersGender: action.payload.showUsersGender
+        userSelectedOrientations: action.payload.userSelectedOrientations,
+        showUsersGender: action.payload.showUsersGender,
+        showUsersOrientations: action.payload.showUsersOrientations
       }
     default:
       return {

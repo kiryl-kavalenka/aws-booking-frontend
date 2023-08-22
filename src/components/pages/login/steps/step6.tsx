@@ -17,24 +17,24 @@ export const Step6: FC<Step6Props> = ({goAhead}) => {
     const GENDERS = ['Woman', 'Man', 'More']
 
     const dispatch = useDispatch();
-    const { userSelectedGender, showUsersGender } = useSelector(
+    const { userSelectedGender, userSelectedOrientations, showUsersGender, showUsersOrientations } = useSelector(
         (state: RootState) => state.login
     );
 
     const [canContinue, setCanContinue] = useState(false);
 
-    const [selectedOrientation, setSelectedOrientation] = useState<string[]>([]);
+    const [selectedOrientation, setSelectedOrientation] = useState<string[]>(userSelectedOrientations);
     const [selectedGender, setSelectedGender] = useState<string>(userSelectedGender);
     const [showGenderOnProfile, setShowGenderOnProfile] = useState<boolean>(showUsersGender);
-    const [showOrientationOnProfile, setShowOrientationOnProfile] = useState(false);
+    const [showOrientationOnProfile, setShowOrientationOnProfile] = useState<boolean>(showUsersOrientations);
 
     const handleContinue = () => {
-        console.log('continue')
-        console.log('selectedOrientation', selectedOrientation)
-        console.log('selectedGender', selectedGender)
-        console.log('showGenderOnProfile', showGenderOnProfile)
-        console.log('showOrientationOnProfile', showOrientationOnProfile)
-        dispatch(continueStep6Clicked({userSelectedGender: selectedGender, showUsersGender: showGenderOnProfile}))
+        dispatch(continueStep6Clicked({
+            userSelectedGender: selectedGender,
+            userSelectedOrientations: selectedOrientation, 
+            showUsersGender: showGenderOnProfile,
+            showUsersOrientations: showOrientationOnProfile,
+        }))
         goAhead()
     }
 
@@ -54,7 +54,7 @@ export const Step6: FC<Step6Props> = ({goAhead}) => {
         } else if (selectedGender === 'More') {
             // for choose orientation case
             handleGenderCheckboxClick(false)
-            setCanContinue((prev) => prev = false)
+            selectedOrientation.length <= 3 && selectedOrientation.length !== 0 ? setCanContinue((prev) => prev = true) : setCanContinue((prev) => prev = false)
         } else if (selectedGender !== 'More') {
             setCanContinue((prev) => prev = true)
         }
@@ -63,10 +63,10 @@ export const Step6: FC<Step6Props> = ({goAhead}) => {
     const handleClickItem = (param: string) => {
         if (!selectedOrientation.includes(param)) {
             const newArr = [...selectedOrientation, param]
-            setSelectedOrientation((prev) => prev = newArr)
+            setSelectedOrientation(prev => prev = newArr)
         } else if (selectedOrientation.includes(param)) {
             const newArr = selectedOrientation.filter((orientation) => orientation !== param)
-            setSelectedOrientation((prev) => prev = newArr)
+            setSelectedOrientation(prev => prev = newArr)
         }
     }
 
