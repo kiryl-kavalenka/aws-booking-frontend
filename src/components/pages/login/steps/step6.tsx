@@ -3,6 +3,9 @@ import { Text } from '../../../ui/text';
 import { Button } from "../../../ui/button";
 import { ToggleButton } from "../../../ui/toggle-button";
 import { CheckBox } from "../../../ui/checkbox";
+import { useDispatch, useSelector } from "react-redux";
+import { continueStep6Clicked } from "../../../../core/redux/actions/loginActions";
+import { RootState } from "../../../../core/redux/reducers/rootReducer";
 
 interface Step6Props {
     goAhead: () => void;
@@ -13,11 +16,16 @@ export const Step6: FC<Step6Props> = ({goAhead}) => {
     const ORIENTATIONS = ['Straight', 'Gay', 'Lesbian', 'Bisexual', 'Asexual', 'Demisexual', 'Pansexual', 'Queer']
     const GENDERS = ['Woman', 'Man', 'More']
 
+    const dispatch = useDispatch();
+    const { userSelectedGender, showUsersGender } = useSelector(
+        (state: RootState) => state.login
+    );
+
     const [canContinue, setCanContinue] = useState(false);
 
     const [selectedOrientation, setSelectedOrientation] = useState<string[]>([]);
-    const [selectedGender, setSelectedGender] = useState<string>();
-    const [showGenderOnProfile, setShowGenderOnProfile] = useState(false);
+    const [selectedGender, setSelectedGender] = useState<string>(userSelectedGender);
+    const [showGenderOnProfile, setShowGenderOnProfile] = useState<boolean>(showUsersGender);
     const [showOrientationOnProfile, setShowOrientationOnProfile] = useState(false);
 
     const handleContinue = () => {
@@ -26,6 +34,7 @@ export const Step6: FC<Step6Props> = ({goAhead}) => {
         console.log('selectedGender', selectedGender)
         console.log('showGenderOnProfile', showGenderOnProfile)
         console.log('showOrientationOnProfile', showOrientationOnProfile)
+        dispatch(continueStep6Clicked({userSelectedGender: selectedGender, showUsersGender: showGenderOnProfile}))
         goAhead()
     }
 
@@ -45,6 +54,9 @@ export const Step6: FC<Step6Props> = ({goAhead}) => {
         } else if (selectedGender === 'More') {
             // for choose orientation case
             handleGenderCheckboxClick(false)
+            setCanContinue((prev) => prev = false)
+        } else if (selectedGender !== 'More') {
+            setCanContinue((prev) => prev = true)
         }
     }, [selectedGender, selectedOrientation])
 
@@ -60,7 +72,6 @@ export const Step6: FC<Step6Props> = ({goAhead}) => {
 
     const handleToggleButtonClick = (gender: string) => {
         setSelectedGender((prev) => prev = gender)
-        gender !== 'More' ? setCanContinue((prev) => prev = true) : setCanContinue((prev) => prev = false)
     }
 
     const handleGenderCheckboxClick = (checked: boolean) => {

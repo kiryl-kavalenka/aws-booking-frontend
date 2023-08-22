@@ -9,7 +9,9 @@ import {
   ContinueStep4Payload,
   ContinueStep4Clicked,
   ContinueStep5Payload,
-  ContinueStep5Clicked
+  ContinueStep5Clicked,
+  ContinueStep6Clicked,
+  ContinueStep6Payload
 } from "../types/login.types";
 
 export const signUpClicked = (payload: SignUpStep1Payload): SignUpClicked => ({
@@ -34,5 +36,10 @@ export const continueStep4Clicked = (payload: ContinueStep4Payload): ContinueSte
 
 export const continueStep5Clicked = (payload: ContinueStep5Payload): ContinueStep5Clicked => ({
   type: loginTypes.CONTINUE_STEP_5_CLICKED,
+  payload
+});
+
+export const continueStep6Clicked = (payload: ContinueStep6Payload): ContinueStep6Clicked => ({
+  type: loginTypes.CONTINUE_STEP_6_CLICKED,
   payload
 });

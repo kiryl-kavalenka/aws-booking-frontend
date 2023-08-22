@@ -9,6 +9,8 @@ const initialState: LoginState = {
   userEmail: '',
   userNickName: '',
   userBirthDate: '',
+  userSelectedGender: '',
+  showUsersGender: false,
 };
 
 
@@ -40,6 +42,12 @@ const loginReducer = (state = initialState, action: LoginActions) => {
       return {
         ...state,
         userBirthDate: action.payload.userBirthDate
+      }
+    case loginTypes.CONTINUE_STEP_6_CLICKED:
+      return {
+        ...state,
+        userSelectedGender: action.payload.userSelectedGender,
+        showUsersGender: action.payload.showUsersGender
       }
     default:
       return {

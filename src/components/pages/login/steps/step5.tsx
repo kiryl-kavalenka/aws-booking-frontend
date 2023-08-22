@@ -11,13 +11,13 @@ interface Step5Props {
 }
 
 export const Step5: FC<Step5Props> = ({goAhead}) => {
-    const [birthDay, setBirthDay] = useState('')
-    const [canContinue, setCanContinue] = useState(false);
-    const [validateError, setValidateError] = useState(false)
     const dispatch = useDispatch();
     const { userBirthDate } = useSelector(
         (state: RootState) => state.login
     );
+    const [birthDay, setBirthDay] = useState(userBirthDate)
+    const [canContinue, setCanContinue] = useState(false);
+    const [validateError, setValidateError] = useState(false)
 
     const handleBirthDayChange = (keysInputed: string[]) => {
         console.log('keysInputed', keysInputed);
@@ -37,17 +37,17 @@ export const Step5: FC<Step5Props> = ({goAhead}) => {
 
     useEffect(() => {
         console.log('birthDay', birthDay)
-        birthDay.length === 10 || userBirthDate.length === 10 ? setCanContinue(true) : setCanContinue(false);
-    }, [birthDay, userBirthDate])
+        birthDay.length === 10 ? setCanContinue(true) : setCanContinue(false);
+    }, [birthDay])
 
     useEffect(() => {
         console.log('validateError', validateError)
-        if (birthDay.length === 10 || userBirthDate.length === 10) {
+        if (birthDay.length === 10) {
             setCanContinue(validateError ? false : true);
         } else {
             setCanContinue(false)
         }
-    }, [validateError, birthDay, userBirthDate])
+    }, [validateError, birthDay])
 
     const onValidateError = (error: boolean) => {
         setValidateError(error)
@@ -63,7 +63,7 @@ export const Step5: FC<Step5Props> = ({goAhead}) => {
                 >
                     Your age will be public.
             </Text>
-            <DateInput value={userBirthDate ? userBirthDate.replace(/\./g, '') : birthDay} onValidateError={onValidateError} onChange={handleBirthDayChange}/>
+            <DateInput value={birthDay ? birthDay.replace(/\./g, '') : birthDay} onValidateError={onValidateError} onChange={handleBirthDayChange}/>
             {/* <input type="date" placeholder="date" value={birthDay} onChange={handleBirthDayChange}></input> */}
             <Button type="common" width="100%" onClick={handleContinue} disabled={!canContinue}>Contitnue</Button>
         </>
