@@ -14,6 +14,7 @@ const initialState: LoginState = {
   showUsersGender: false,
   showUsersOrientations: false,
   showUserTo: '',
+  userImages: [],
 };
 
 
@@ -58,6 +59,11 @@ const loginReducer = (state = initialState, action: LoginActions) => {
       return {
         ...state,
         showUserTo: action.payload.showUserTo
+      }
+    case loginTypes.CONTINUE_STEP_8_CLICKED:
+      return {
+        ...state,
+        userImages: action.payload.userImages
       }
     default:
       return {
