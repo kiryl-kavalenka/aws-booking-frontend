@@ -2,8 +2,8 @@ import { FC, useEffect, useState } from "react";
 import * as S from './codeInput.styles';
 import { CodeInputProps } from "./codeInput.types";
 
-export const CodeInput: FC<CodeInputProps> = ({codeNumber, onChange, width, gap, elementWidth, elementHeight}) => {
-    let [keysPressed, setKeysPressed] = useState<string[]>([])
+export const CodeInput: FC<CodeInputProps> = ({codeNumber, onChange, width, gap, elementWidth, elementHeight, value}) => {
+    let [keysPressed, setKeysPressed] = useState<string[]>([...value])
 
     const handleKeyPres = (event: any) => {
         if (keysPressed.length < codeNumber) {
@@ -28,7 +28,6 @@ export const CodeInput: FC<CodeInputProps> = ({codeNumber, onChange, width, gap,
     })
 
     useEffect(() => {
-        // console.log('keysPressed', keysPressed)
         onChange(keysPressed)
     }, [keysPressed, onChange])
 

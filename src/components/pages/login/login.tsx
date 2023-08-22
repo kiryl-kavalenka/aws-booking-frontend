@@ -64,11 +64,11 @@ export const LoginPage: FC = () => {
                     {
                         currentStep === 1 
                             ? <Button type="common" onClick={handleSignIn}>Sign In</Button> 
-                            : currentStep < 8 ? <Button type="danger" onClick={handlePrev} disabled={!goBack}>Go Back</Button> : ''
+                            : currentStep <= 8 ? <Button type="danger" onClick={handlePrev} disabled={!goBack}>Go Back</Button> : ''
                     }
                     <Text type="title" textAlign="center">Vamost</Text>
                     {
-                        currentStep < 8 ? <Button type="common" onClick={handleClose}>Close</Button> : ''
+                        currentStep <= 8 ? <Button type="common" onClick={handleClose}>Close</Button> : ''
                     }
                 </LoginPageTop>
                 {currentStep === 1 && <Step1 goAhead={handleNext} /> }

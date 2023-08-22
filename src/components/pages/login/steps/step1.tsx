@@ -5,6 +5,8 @@ import { Input } from "../../../ui/input";
 import PhoneInput from 'react-phone-number-input';
 import {isValidPhoneNumber} from 'react-phone-number-input';
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { signUpClicked } from "../../../../core/redux/actions/loginActions";
 
 const FormWrapper = styled.div`
     display: flex;
@@ -36,6 +38,8 @@ interface Step1Props {
 }
 
 export const Step1: FC<Step1Props> = ({goAhead}) => {
+    const dispatch = useDispatch();
+
     const [password, setPassword] = useState('');
     const [phoneNumber, setPhoneNumber] = useState<string | undefined>();
     const [canSignIn, setCanSignIn] = useState(false);
@@ -68,6 +72,9 @@ export const Step1: FC<Step1Props> = ({goAhead}) => {
     const handleSignIn = () => {
         console.log('sign in event');
         console.log(`phoneNumber and password = ${phoneNumber}  ${password}`);
+        if (phoneNumber && password) {
+            dispatch(signUpClicked({phoneNumber, password}))
+        }
         goAhead();
     }
 

@@ -3,6 +3,9 @@ import { Text } from '../../../ui/text';
 import { Button } from "../../../ui/button";
 import { ToggleButton } from "../../../ui/toggle-button";
 import { CheckBox } from "../../../ui/checkbox";
+import { useDispatch, useSelector } from "react-redux";
+import { continueStep6Clicked } from "../../../../core/redux/actions/loginActions";
+import { RootState } from "../../../../core/redux/reducers/rootReducer";
 
 interface Step6Props {
     goAhead: () => void;
@@ -13,19 +16,25 @@ export const Step6: FC<Step6Props> = ({goAhead}) => {
     const ORIENTATIONS = ['Straight', 'Gay', 'Lesbian', 'Bisexual', 'Asexual', 'Demisexual', 'Pansexual', 'Queer']
     const GENDERS = ['Woman', 'Man', 'More']
 
+    const dispatch = useDispatch();
+    const { userSelectedGender, userSelectedOrientations, showUsersGender, showUsersOrientations } = useSelector(
+        (state: RootState) => state.login
+    );
+
     const [canContinue, setCanContinue] = useState(false);
 
-    const [selectedOrientation, setSelectedOrientation] = useState<string[]>([]);
-    const [selectedGender, setSelectedGender] = useState<string>();
-    const [showGenderOnProfile, setShowGenderOnProfile] = useState(false);
-    const [showOrientationOnProfile, setShowOrientationOnProfile] = useState(false);
+    const [selectedOrientation, setSelectedOrientation] = useState<string[]>(userSelectedOrientations);
+    const [selectedGender, setSelectedGender] = useState<string>(userSelectedGender);
+    const [showGenderOnProfile, setShowGenderOnProfile] = useState<boolean>(showUsersGender);
+    const [showOrientationOnProfile, setShowOrientationOnProfile] = useState<boolean>(showUsersOrientations);
 
     const handleContinue = () => {
-        console.log('continue')
-        console.log('selectedOrientation', selectedOrientation)
-        console.log('selectedGender', selectedGender)
-        console.log('showGenderOnProfile', showGenderOnProfile)
-        console.log('showOrientationOnProfile', showOrientationOnProfile)
+        dispatch(continueStep6Clicked({
+            userSelectedGender: selectedGender,
+            userSelectedOrientations: selectedOrientation, 
+            showUsersGender: showGenderOnProfile,
+            showUsersOrientations: showOrientationOnProfile,
+        }))
         goAhead()
     }
 
@@ -45,22 +54,24 @@ export const Step6: FC<Step6Props> = ({goAhead}) => {
         } else if (selectedGender === 'More') {
             // for choose orientation case
             handleGenderCheckboxClick(false)
+            selectedOrientation.length <= 3 && selectedOrientation.length !== 0 ? setCanContinue((prev) => prev = true) : setCanContinue((prev) => prev = false)
+        } else if (selectedGender !== 'More') {
+            setCanContinue((prev) => prev = true)
         }
     }, [selectedGender, selectedOrientation])
 
     const handleClickItem = (param: string) => {
         if (!selectedOrientation.includes(param)) {
             const newArr = [...selectedOrientation, param]
-            setSelectedOrientation((prev) => prev = newArr)
+            setSelectedOrientation(prev => prev = newArr)
         } else if (selectedOrientation.includes(param)) {
             const newArr = selectedOrientation.filter((orientation) => orientation !== param)
-            setSelectedOrientation((prev) => prev = newArr)
+            setSelectedOrientation(prev => prev = newArr)
         }
     }
 
     const handleToggleButtonClick = (gender: string) => {
         setSelectedGender((prev) => prev = gender)
-        gender !== 'More' ? setCanContinue((prev) => prev = true) : setCanContinue((prev) => prev = false)
     }
 
     const handleGenderCheckboxClick = (checked: boolean) => {

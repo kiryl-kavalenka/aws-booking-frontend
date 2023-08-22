@@ -2,13 +2,20 @@ import { FC, useEffect, useState } from "react";
 import { Text } from '../../../ui/text';
 import { Button } from "../../../ui/button";
 import { DateInput } from "../../../ui/dateInput";
+import { useDispatch, useSelector } from "react-redux";
+import { continueStep5Clicked } from "../../../../core/redux/actions/loginActions";
+import { RootState } from "../../../../core/redux/reducers/rootReducer";
 
 interface Step5Props {
     goAhead: () => void;
 }
 
 export const Step5: FC<Step5Props> = ({goAhead}) => {
-    const [birthDay, setBirthDay] = useState('')
+    const dispatch = useDispatch();
+    const { userBirthDate } = useSelector(
+        (state: RootState) => state.login
+    );
+    const [birthDay, setBirthDay] = useState(userBirthDate)
     const [canContinue, setCanContinue] = useState(false);
     const [validateError, setValidateError] = useState(false)
 
@@ -24,6 +31,7 @@ export const Step5: FC<Step5Props> = ({goAhead}) => {
 
     const handleContinue = () => {
         console.log('continue')
+        dispatch(continueStep5Clicked({userBirthDate: birthDay}))
         goAhead()
     }
 
@@ -55,7 +63,7 @@ export const Step5: FC<Step5Props> = ({goAhead}) => {
                 >
                     Your age will be public.
             </Text>
-            <DateInput onValidateError={onValidateError} onChange={handleBirthDayChange}/>
+            <DateInput value={birthDay ? birthDay.replace(/\./g, '') : birthDay} onValidateError={onValidateError} onChange={handleBirthDayChange}/>
             {/* <input type="date" placeholder="date" value={birthDay} onChange={handleBirthDayChange}></input> */}
             <Button type="common" width="100%" onClick={handleContinue} disabled={!canContinue}>Contitnue</Button>
         </>

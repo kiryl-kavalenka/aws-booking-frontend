@@ -2,6 +2,9 @@ import { FC, useEffect, useRef, useState } from "react";
 import { Text } from '../../../ui/text';
 import { Button } from "../../../ui/button";
 import { styled } from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { continueStep8Clicked } from "../../../../core/redux/actions/loginActions";
+import { RootState } from "../../../../core/redux/reducers/rootReducer";
 
 const Wrapper = styled.div`
     display: grid;
@@ -68,9 +71,14 @@ interface Step8Props {
 }
 
 export const Step8: FC<Step8Props> = ({goAhead}) => {
+    const dispatch = useDispatch();
+    const { userImages } = useSelector(
+        (state: RootState) => state.login
+    );
     const [canFinish, setCanFinish] = useState<boolean>(false);
 
-    const [images, setImages] = useState<File[]>(Array.from({length: 6}));
+    // const [images, setImages] = useState<File[]>(Array.from({length: 6}));
+    const [images, setImages] = useState<File[]>(userImages);
     const [imageURLs, setimageURLs] = useState<string[]>([]);
     const fileInputRefs = useRef<HTMLInputElement[]>(Array.from({length: 6}));
 
@@ -172,6 +180,7 @@ export const Step8: FC<Step8Props> = ({goAhead}) => {
 
     const handleFinish = () => {
         console.log('finish')
+        dispatch(continueStep8Clicked({userImages: images}))
         goAhead()
     }
 
