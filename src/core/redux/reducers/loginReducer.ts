@@ -13,6 +13,7 @@ const initialState: LoginState = {
   userSelectedOrientations: [''],
   showUsersGender: false,
   showUsersOrientations: false,
+  showUserTo: '',
 };
 
 
@@ -52,6 +53,11 @@ const loginReducer = (state = initialState, action: LoginActions) => {
         userSelectedOrientations: action.payload.userSelectedOrientations,
         showUsersGender: action.payload.showUsersGender,
         showUsersOrientations: action.payload.showUsersOrientations
+      }
+    case loginTypes.CONTINUE_STEP_7_CLICKED:
+      return {
+        ...state,
+        showUserTo: action.payload.showUserTo
       }
     default:
       return {

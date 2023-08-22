@@ -12,6 +12,7 @@ export interface LoginState {
   userSelectedOrientations: string[];
   showUsersGender: boolean;
   showUsersOrientations: boolean;
+  showUserTo: string;
 }
 
 export interface SignUpClicked {
@@ -44,6 +45,11 @@ export interface ContinueStep6Clicked {
   payload: ContinueStep6Payload
 }
 
+export interface ContinueStep7Clicked {
+  type: typeof loginTypes.CONTINUE_STEP_7_CLICKED;
+  payload: ContinueStep7Payload
+}
+
 export interface SignUpStep1Payload {
   phoneNumber: string;
   password: string;
@@ -72,10 +78,15 @@ export interface ContinueStep6Payload {
   showUsersOrientations: boolean;
 }
 
+export interface ContinueStep7Payload {
+  showUserTo: string;
+}
+
 export type LoginActions = 
   SignUpClicked | 
   ContinueStep2Clicked | 
   ContinueStep3Clicked | 
   ContinueStep4Clicked | 
   ContinueStep5Clicked |
-  ContinueStep6Clicked;
+  ContinueStep6Clicked |
+  ContinueStep7Clicked;
