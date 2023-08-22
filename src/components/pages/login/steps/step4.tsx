@@ -2,6 +2,9 @@ import { FC, useEffect, useState } from "react";
 import { Text } from '../../../ui/text';
 import { Button } from "../../../ui/button";
 import { Input } from "../../../ui/input";
+import { useDispatch, useSelector } from "react-redux";
+import { continueStep4Clicked } from "../../../../core/redux/actions/loginActions";
+import { RootState } from "../../../../core/redux/reducers/rootReducer";
 
 interface Step4Props {
     goAhead: () => void;
@@ -10,6 +13,10 @@ interface Step4Props {
 export const Step4: FC<Step4Props> = ({goAhead}) => {
     const [nickName, setNickName] = useState('')
     const [canContinue, setCanContinue] = useState(false);
+    const dispatch = useDispatch();
+    const { userNickName } = useSelector(
+        (state: RootState) => state.login
+    );
 
     const handleNickNameChange = (event: any) => {
         setNickName(event.target.value);
@@ -17,12 +24,13 @@ export const Step4: FC<Step4Props> = ({goAhead}) => {
 
     const handleContinue = () => {
         console.log('continue')
+        dispatch(continueStep4Clicked({userNickName: nickName}))
         goAhead()
     }
 
     useEffect(() => {
-        nickName.length >= 5 ? setCanContinue(true) : setCanContinue(false);
-    }, [nickName])
+        nickName.length >= 5 || userNickName.length >= 5 ? setCanContinue(true) : setCanContinue(false);
+    }, [nickName, userNickName])
 
     return(
         <>
@@ -39,6 +47,7 @@ export const Step4: FC<Step4Props> = ({goAhead}) => {
                 name="text" 
                 placeholder="Nickname" 
                 width="fit-content"
+                value={userNickName ? userNickName : nickName}
                 onChange={handleNickNameChange}
             />
             <Button type="common" width="100%" onClick={handleContinue} disabled={!canContinue}>Contitnue</Button>
