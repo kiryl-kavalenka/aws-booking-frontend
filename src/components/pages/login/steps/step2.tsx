@@ -16,7 +16,7 @@ export const Step2: FC<Step2Props> = ({goAhead}) => {
         (state: RootState) => state.login
     );
 
-    const [digitCode, setDigitCode] = useState('')
+    const [digitCode, setDigitCode] = useState(sixDigitCode)
     const [canConfirm, setCanConfirm] = useState(false);
 
     const handleDigitCodeChange = (keysInputed: string[]) => {
@@ -40,7 +40,7 @@ export const Step2: FC<Step2Props> = ({goAhead}) => {
     return(
         <>
             <Text type="header" textAlign="center" width="fit-content">Enter the 6-digit code sent to you at "phoneNumber"</Text>
-            <CodeInput codeNumber={6} value={sixDigitCode ? sixDigitCode : ''} onChange={handleDigitCodeChange}></CodeInput>
+            <CodeInput codeNumber={6} value={digitCode} onChange={handleDigitCodeChange}></CodeInput>
             <Text
                 type="info" 
                 textAlign="center" 

@@ -7,6 +7,7 @@ export interface LoginState {
   sixDigitCode: string;
   userEmail: string;
   userNickName: string;
+  userBirthDate: string;
 }
 
 export interface SignUpClicked {
@@ -29,6 +30,11 @@ export interface ContinueStep4Clicked {
   payload: ContinueStep4Payload
 }
 
+export interface ContinueStep5Clicked {
+  type: typeof loginTypes.CONTINUE_STEP_5_CLICKED;
+  payload: ContinueStep5Payload
+}
+
 export interface SignUpStep1Payload {
   phoneNumber: string;
   password: string;
@@ -46,4 +52,13 @@ export interface ContinueStep4Payload {
   userNickName: string;
 }
 
-export type LoginActions = SignUpClicked | ContinueStep2Clicked | ContinueStep3Clicked | ContinueStep4Clicked;
+export interface ContinueStep5Payload {
+  userBirthDate: string;
+}
+
+export type LoginActions = 
+  SignUpClicked | 
+  ContinueStep2Clicked | 
+  ContinueStep3Clicked | 
+  ContinueStep4Clicked | 
+  ContinueStep5Clicked;

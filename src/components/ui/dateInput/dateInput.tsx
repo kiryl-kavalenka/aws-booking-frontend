@@ -2,11 +2,12 @@ import { FC, useEffect, useState } from "react";
 import * as S from './dateInput.styles'
 import { DateInputProps } from "./dateInput.types";
 
-export const DateInput: FC<DateInputProps> = ({onValidateError , onChange}) => {
+export const DateInput: FC<DateInputProps> = ({onValidateError , onChange, value}) => {
     const AMOUNT_OF_DIGITS = 8;
     const BACKGROUND_LETTERS = ['M', 'M', '/', 'D', 'D', '/', 'Y', 'Y', 'Y', 'Y']
-    const [keysPressed, setKeysPressed] = useState<string[]>([])
+    const [keysPressed, setKeysPressed] = useState<string[]>([...value])
     const [validError, setValidError] = useState('');
+    console.log('value in input', value)
 
     const handleKeyPres = (event: any) => {
         if (keysPressed.length < AMOUNT_OF_DIGITS) {

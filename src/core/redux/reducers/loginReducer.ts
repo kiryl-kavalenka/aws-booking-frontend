@@ -8,6 +8,7 @@ const initialState: LoginState = {
   sixDigitCode: '',
   userEmail: '',
   userNickName: '',
+  userBirthDate: '',
 };
 
 
@@ -34,6 +35,11 @@ const loginReducer = (state = initialState, action: LoginActions) => {
       return {
         ...state,
         userNickName: action.payload.userNickName
+      }
+    case loginTypes.CONTINUE_STEP_5_CLICKED:
+      return {
+        ...state,
+        userBirthDate: action.payload.userBirthDate
       }
     default:
       return {

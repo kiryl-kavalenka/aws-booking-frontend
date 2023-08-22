@@ -11,14 +11,15 @@ interface Step3Props {
 }
 
 export const Step3: FC<Step3Props> = ({goAhead}) => {
-    const [email, setEmail] = useState('')
-    const [canContinue, setCanContinue] = useState(false);
     const dispatch = useDispatch();
     const { userEmail } = useSelector(
         (state: RootState) => state.login
     );
+    const [email, setEmail] = useState(userEmail)
+    const [canContinue, setCanContinue] = useState(false);
 
     const handleEmailChange = (event: any) => {
+        console.log('email event', event)
         setEmail(event.target.value);
     }
 
@@ -29,8 +30,8 @@ export const Step3: FC<Step3Props> = ({goAhead}) => {
     }
 
     useEffect(() => {
-        email.length >= 5 || userEmail.length >=5 ? setCanContinue(true) : setCanContinue(false);
-    }, [email, userEmail])
+        email.length >= 5 ? setCanContinue(true) : setCanContinue(false);
+    }, [email])
 
     return(
         <>
@@ -47,7 +48,7 @@ export const Step3: FC<Step3Props> = ({goAhead}) => {
                 name="email" 
                 placeholder="Enter your emial address" 
                 width="fit-content"
-                value={userEmail ? userEmail : email}
+                value={email}
                 onChange={handleEmailChange}
             />
             <Button type="common" width="100%" onClick={handleContinue} disabled={!canContinue}>Contitnue</Button>

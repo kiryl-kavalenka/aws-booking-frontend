@@ -11,12 +11,12 @@ interface Step4Props {
 }
 
 export const Step4: FC<Step4Props> = ({goAhead}) => {
-    const [nickName, setNickName] = useState('')
-    const [canContinue, setCanContinue] = useState(false);
     const dispatch = useDispatch();
     const { userNickName } = useSelector(
         (state: RootState) => state.login
     );
+    const [nickName, setNickName] = useState(userNickName)
+    const [canContinue, setCanContinue] = useState(false);
 
     const handleNickNameChange = (event: any) => {
         setNickName(event.target.value);
@@ -29,8 +29,8 @@ export const Step4: FC<Step4Props> = ({goAhead}) => {
     }
 
     useEffect(() => {
-        nickName.length >= 5 || userNickName.length >= 5 ? setCanContinue(true) : setCanContinue(false);
-    }, [nickName, userNickName])
+        nickName.length >= 5 ? setCanContinue(true) : setCanContinue(false);
+    }, [nickName])
 
     return(
         <>
@@ -47,7 +47,7 @@ export const Step4: FC<Step4Props> = ({goAhead}) => {
                 name="text" 
                 placeholder="Nickname" 
                 width="fit-content"
-                value={userNickName ? userNickName : nickName}
+                value={nickName}
                 onChange={handleNickNameChange}
             />
             <Button type="common" width="100%" onClick={handleContinue} disabled={!canContinue}>Contitnue</Button>

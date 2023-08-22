@@ -2,6 +2,9 @@ import { FC, useEffect, useState } from "react";
 import { Text } from '../../../ui/text';
 import { Button } from "../../../ui/button";
 import { DateInput } from "../../../ui/dateInput";
+import { useDispatch, useSelector } from "react-redux";
+import { continueStep5Clicked } from "../../../../core/redux/actions/loginActions";
+import { RootState } from "../../../../core/redux/reducers/rootReducer";
 
 interface Step5Props {
     goAhead: () => void;
@@ -11,6 +14,10 @@ export const Step5: FC<Step5Props> = ({goAhead}) => {
     const [birthDay, setBirthDay] = useState('')
     const [canContinue, setCanContinue] = useState(false);
     const [validateError, setValidateError] = useState(false)
+    const dispatch = useDispatch();
+    const { userBirthDate } = useSelector(
+        (state: RootState) => state.login
+    );
 
     const handleBirthDayChange = (keysInputed: string[]) => {
         console.log('keysInputed', keysInputed);
@@ -24,22 +31,23 @@ export const Step5: FC<Step5Props> = ({goAhead}) => {
 
     const handleContinue = () => {
         console.log('continue')
+        dispatch(continueStep5Clicked({userBirthDate: birthDay}))
         goAhead()
     }
 
     useEffect(() => {
         console.log('birthDay', birthDay)
-        birthDay.length === 10 ? setCanContinue(true) : setCanContinue(false);
-    }, [birthDay])
+        birthDay.length === 10 || userBirthDate.length === 10 ? setCanContinue(true) : setCanContinue(false);
+    }, [birthDay, userBirthDate])
 
     useEffect(() => {
         console.log('validateError', validateError)
-        if (birthDay.length === 10) {
+        if (birthDay.length === 10 || userBirthDate.length === 10) {
             setCanContinue(validateError ? false : true);
         } else {
             setCanContinue(false)
         }
-    }, [validateError, birthDay])
+    }, [validateError, birthDay, userBirthDate])
 
     const onValidateError = (error: boolean) => {
         setValidateError(error)
@@ -55,7 +63,7 @@ export const Step5: FC<Step5Props> = ({goAhead}) => {
                 >
                     Your age will be public.
             </Text>
-            <DateInput onValidateError={onValidateError} onChange={handleBirthDayChange}/>
+            <DateInput value={userBirthDate ? userBirthDate.replace(/\./g, '') : birthDay} onValidateError={onValidateError} onChange={handleBirthDayChange}/>
             {/* <input type="date" placeholder="date" value={birthDay} onChange={handleBirthDayChange}></input> */}
             <Button type="common" width="100%" onClick={handleContinue} disabled={!canContinue}>Contitnue</Button>
         </>
